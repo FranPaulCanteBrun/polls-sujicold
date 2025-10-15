@@ -756,6 +756,16 @@ class ConfigPanel {
           duration: 800,
           easing: 'easeOutElastic(1, .6)'
         });
+        
+        // Mostrar confetti si está habilitado
+        if (typeof confetti !== 'undefined' && this.config.enableConfetti !== false) {
+          confetti({
+            particleCount: 100,
+            spread: 60,
+            origin: { y: 0.6 },
+            colors: ['#FFB6C1', '#FFC0CB', '#FFD700', '#FFA500', '#FF69B4', '#FF1493']
+          });
+        }
         break;
     }
   }
