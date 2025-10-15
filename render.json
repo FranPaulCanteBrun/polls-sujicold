@@ -1,0 +1,50 @@
+# Render Configuration
+
+## 🚀 Configuración del Servicio
+
+### **Configuración Básica:**
+- **Name**: `twitch-poll-overlay`
+- **Environment**: `Node`
+- **Build Command**: `cd backend && npm install`
+- **Start Command**: `cd backend && npm start`
+- **Instance Type**: `Free`
+
+### **Variables de Entorno:**
+```
+TWITCH_CLIENT_ID=tu_client_id_de_twitch
+TWITCH_CLIENT_SECRET=tu_client_secret_de_twitch
+TWITCH_REDIRECT_URI=https://tu-proyecto.onrender.com/auth/callback
+NODE_ENV=production
+```
+
+### **Configuración Avanzada:**
+- **Auto-Deploy**: `Yes` (deploy automático desde GitHub)
+- **Branch**: `main`
+- **Root Directory**: `/` (raíz del repositorio)
+- **Health Check Path**: `/health`
+
+## 📋 Pasos para crear el servicio:
+
+1. **Ve a [render.com](https://render.com)**
+2. **Haz clic en "New +"**
+3. **Selecciona "Web Service"**
+4. **Conecta tu repositorio de GitHub**
+5. **Configura el servicio con los valores de arriba**
+6. **Agrega las variables de entorno**
+7. **Haz clic en "Create Web Service"**
+
+## ⚠️ Notas importantes:
+
+- **Render usa el puerto automáticamente** (no necesitas configurar PORT)
+- **La URL será**: `https://tu-proyecto.onrender.com`
+- **WebSockets están soportados** completamente
+- **SSL está incluido** automáticamente
+- **El servicio se duerme** después de 15 min de inactividad
+- **Se despierta automáticamente** cuando recibe tráfico
+
+## 🔧 URLs después del deploy:
+
+- **Overlay**: `https://tu-proyecto.onrender.com/overlay.html`
+- **Configuración**: `https://tu-proyecto.onrender.com/config.html`
+- **Test**: `https://tu-proyecto.onrender.com/test-overlay`
+- **Health**: `https://tu-proyecto.onrender.com/health`

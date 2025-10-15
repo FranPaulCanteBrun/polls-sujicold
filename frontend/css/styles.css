@@ -1,0 +1,534 @@
+/* Estilos personalizados para el overlay de encuestas de Twitch */
+
+/* Variables CSS para colores pasteles súper suaves */
+:root {
+  /* Paleta Pastel Principal */
+  --pastel-pink: #FFB6C1;
+  --pastel-blue: #B3D9FF;
+  --pastel-purple: #D9B3FF;
+  --pastel-mint: #B3FFD9;
+  --pastel-peach: #FFDAB3;
+  --pastel-lavender: #E6E6FA;
+  --pastel-coral: #FFB3BA;
+  --pastel-sky: #B3E5FC;
+  
+  /* Paleta Vibrante */
+  --vibrant-pink: #FF6B9D;
+  --vibrant-teal: #4ECDC4;
+  --vibrant-blue: #45B7D1;
+  --vibrant-green: #96CEB4;
+  --vibrant-yellow: #FFEAA7;
+  
+  /* Paleta Atardecer */
+  --sunset-pink: #FF9A9E;
+  --sunset-purple: #FECFEF;
+  --sunset-coral: #FFD1DC;
+  --sunset-peach: #FFB3BA;
+  
+  /* Paleta Océano */
+  --ocean-blue: #74B9FF;
+  --ocean-dark: #0984E3;
+  --ocean-green: #00B894;
+  --ocean-teal: #00CEC9;
+  --ocean-purple: #6C5CE7;
+  
+  /* Paleta Bosque */
+  --forest-light: #A8E6CF;
+  --forest-medium: #88D8A3;
+  --forest-dark: #B8E6B8;
+  --forest-mint: #C7F0DB;
+  --forest-pale: #D4F1D4;
+  
+  /* Paleta Lavanda */
+  --lavender-light: #E6E6FA;
+  --lavender-medium: #D8BFD8;
+  --lavender-dark: #DDA0DD;
+  --lavender-pink: #EE82EE;
+  --lavender-purple: #DA70D6;
+  
+  /* Colores de fondo con opacidad mejorada */
+  --bg-primary: rgba(255, 255, 255, 0.95);
+  --bg-secondary: rgba(255, 255, 255, 0.85);
+  --bg-glass: rgba(255, 255, 255, 0.15);
+  --bg-dark: rgba(31, 41, 55, 0.95);
+  
+  /* Sombras súper suaves y cute */
+  --shadow-soft: 0 4px 20px rgba(255, 182, 193, 0.15);
+  --shadow-medium: 0 8px 30px rgba(255, 182, 193, 0.2);
+  --shadow-strong: 0 15px 50px rgba(255, 182, 193, 0.25);
+  --shadow-glow: 0 0 30px rgba(255, 182, 193, 0.3);
+  
+  /* Bordes redondeados más suaves */
+  --radius-small: 12px;
+  --radius-medium: 16px;
+  --radius-large: 20px;
+  --radius-xl: 24px;
+  --radius-xxl: 32px;
+  
+  /* Gradientes suaves */
+  --gradient-primary: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(179, 217, 255, 0.1));
+  --gradient-secondary: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 218, 179, 0.2));
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+}
+
+/* Fuentes personalizadas */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-quicksand {
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Contenedor principal del overlay */
+.overlay-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+/* Card principal de la encuesta - Diseño súper cute */
+.poll-card {
+  background: var(--gradient-primary);
+  backdrop-filter: blur(25px);
+  border-radius: var(--radius-xxl);
+  box-shadow: var(--shadow-medium), var(--shadow-glow);
+  border: 3px solid rgba(255, 182, 193, 0.4);
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto de brillo sutil en la tarjeta */
+.poll-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.poll-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-strong), var(--shadow-glow);
+  border-color: rgba(255, 182, 193, 0.6);
+}
+
+/* Animación de brillo */
+@keyframes shimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Header de la encuesta */
+.poll-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.poll-title {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FFB6C1, #B3D9FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.poll-timer {
+  font-size: 16px;
+  font-weight: 600;
+  color: #EC4899;
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(255, 182, 193, 0.15));
+  padding: 8px 16px;
+  border-radius: var(--radius-medium);
+  display: inline-block;
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.1);
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+/* Animación suave del temporizador */
+@keyframes pulse-gentle {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+/* Opciones de la encuesta */
+.poll-options {
+  space-y: 16px;
+}
+
+.poll-option {
+  background: var(--gradient-secondary);
+  border-radius: var(--radius-large);
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 2px solid rgba(255, 182, 193, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+}
+
+.poll-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.poll-option:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-medium);
+  border-color: rgba(255, 182, 193, 0.5);
+}
+
+.poll-option:hover::before {
+  left: 100%;
+}
+
+.poll-option.winner {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 193, 7, 0.2));
+  border-color: rgba(255, 215, 0, 0.6);
+  color: #B45309;
+  animation: winner-glow 2s ease-in-out infinite alternate;
+  box-shadow: var(--shadow-glow), 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.poll-option.winner::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+}
+
+.poll-option-text {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #374151;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.poll-option.winner .poll-option-text {
+  color: #B45309;
+  font-weight: 700;
+}
+
+.poll-progress-container {
+  background: rgba(255, 182, 193, 0.15);
+  border-radius: var(--radius-small);
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.poll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pastel-pink), var(--pastel-blue));
+  border-radius: var(--radius-small);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.poll-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer-progress 2s ease-in-out infinite;
+}
+
+.poll-option.winner .poll-progress-bar {
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  animation: shimmer-gold 1.5s ease-in-out infinite;
+}
+
+.poll-option.winner .poll-progress-bar::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+}
+
+/* Animaciones de progreso */
+@keyframes shimmer-progress {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes shimmer-gold {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Estadísticas mejoradas */
+.poll-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.poll-percentage {
+  color: #EC4899;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(255, 182, 193, 0.1));
+  padding: 4px 8px;
+  border-radius: var(--radius-small);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.poll-votes {
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.poll-option.winner .poll-percentage {
+  color: #B45309;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 193, 7, 0.2));
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.poll-option.winner .poll-votes {
+  color: #B45309;
+  font-weight: 600;
+}
+
+
+/* Footer de la encuesta mejorado */
+.poll-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(255, 182, 193, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--gradient-glass);
+  border-radius: var(--radius-medium);
+  padding: 16px 20px;
+  backdrop-filter: blur(10px);
+}
+
+.poll-status {
+  font-size: 15px;
+  font-weight: 600;
+  color: #EC4899;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.poll-status::before {
+  content: '●';
+  color: #10B981;
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.total-votes {
+  font-size: 15px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FFB6C1, #B3D9FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Canvas para efectos especiales */
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Efectos especiales mejorados */
+@keyframes winner-glow {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Clases de animación */
+.fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.slide-in {
+  animation: slide-in 0.8s ease-out;
+}
+
+.bounce-in {
+  animation: bounce-in 1s ease-out;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .poll-card {
+    padding: 24px;
+    margin: 10px;
+  }
+  
+  .poll-title {
+    font-size: 24px;
+  }
+  
+  .poll-option-text {
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .overlay-container {
+    padding: 20px;
+  }
+  
+  .poll-card {
+    padding: 24px;
+  }
+  
+  .poll-option-text {
+    font-size: 16px;
+  }
+}
+
+/* Estados de visibilidad */
+.poll-card.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.poll-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Colores de las barras de progreso */
+.poll-progress-bar.color-1 {
+  background: linear-gradient(135deg, var(--pastel-pink), #FF69B4);
+}
+
+.poll-progress-bar.color-2 {
+  background: linear-gradient(135deg, var(--pastel-blue), #4169E1);
+}
+
+.poll-progress-bar.color-3 {
+  background: linear-gradient(135deg, var(--pastel-purple), #9370DB);
+}
+
+.poll-progress-bar.color-4 {
+  background: linear-gradient(135deg, var(--pastel-mint), #32CD32);
+}
+
+.poll-progress-bar.color-5 {
+  background: linear-gradient(135deg, var(--pastel-peach), #FF8C00);
+}
+
+.poll-progress-bar.color-6 {
+  background: linear-gradient(135deg, var(--pastel-lavender), #DDA0DD);
+}
+
+.poll-progress-bar.color-7 {
+  background: linear-gradient(135deg, var(--pastel-coral), #FF6347);
+}
+
+.poll-progress-bar.color-8 {
+  background: linear-gradient(135deg, var(--pastel-sky), #87CEEB);
+}

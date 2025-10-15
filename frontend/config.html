@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuración - Overlay de Encuestas Twitch</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Anime.js para animaciones -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body
+    class="bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 min-h-screen font-poppins"
+  >
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">
+          🎨 Configuración del Overlay
+        </h1>
+        <p class="text-gray-600">
+          Personaliza tu overlay de encuestas de Twitch
+        </p>
+      </div>
+
+      <!-- Estado de conexión -->
+      <div
+        id="connection-status"
+        class="bg-white rounded-xl shadow-lg p-6 mb-6"
+      >
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+          🔗 Estado de Conexión
+        </h2>
+        <div id="status-content" class="space-y-3">
+          <!-- Se llena dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Configuración en secciones -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Autenticación con Twitch -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">🎮 Twitch</h2>
+          <div id="twitch-auth-section">
+            <!-- Se llena dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Estilo Visual -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            🎨 Estilo Visual
+          </h2>
+
+          <!-- Paleta de colores -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Paleta de colores</label
+            >
+            <div class="grid grid-cols-2 gap-3">
+              <button
+                class="color-preset p-2 rounded-lg border-2 border-gray-200 hover:border-pink-300 transition-colors"
+                data-preset="pastel"
+                data-colors='["#FFB3D9","#B3D9FF","#D9B3FF","#B3FFD9","#FFDAB3"]'
+              >
+                <div
+                  class="w-full h-8 rounded-lg bg-gradient-to-r from-pink-200 via-blue-200 to-purple-200"
+                ></div>
+                <span class="text-xs mt-1 block text-center">Pastel</span>
+              </button>
+              <button
+                class="color-preset p-2 rounded-lg border-2 border-gray-200 hover:border-pink-300 transition-colors"
+                data-preset="vibrant"
+                data-colors='["#FF6B9D","#4ECDC4","#45B7D1","#96CEB4","#FFEAA7"]'
+              >
+                <div
+                  class="w-full h-8 rounded-lg bg-gradient-to-r from-pink-400 via-teal-400 to-blue-400"
+                ></div>
+                <span class="text-xs mt-1 block text-center">Vibrante</span>
+              </button>
+              <button
+                class="color-preset p-2 rounded-lg border-2 border-gray-200 hover:border-pink-300 transition-colors"
+                data-preset="sunset"
+                data-colors='["#FF9A9E","#FECFEF","#FECFEF","#FFD1DC","#FFB3BA"]'
+              >
+                <div
+                  class="w-full h-8 rounded-lg bg-gradient-to-r from-pink-300 via-purple-200 to-pink-200"
+                ></div>
+                <span class="text-xs mt-1 block text-center">Atardecer</span>
+              </button>
+              <button
+                class="color-preset p-2 rounded-lg border-2 border-gray-200 hover:border-pink-300 transition-colors"
+                data-preset="ocean"
+                data-colors='["#74B9FF","#0984E3","#00B894","#00CEC9","#6C5CE7"]'
+              >
+                <div
+                  class="w-full h-8 rounded-lg bg-gradient-to-r from-blue-400 via-green-400 to-purple-400"
+                ></div>
+                <span class="text-xs mt-1 block text-center">Océano</span>
+              </button>
+              <button
+                class="color-preset p-2 rounded-lg border-2 border-gray-200 hover:border-pink-300 transition-colors"
+                data-preset="forest"
+                data-colors='["#A8E6CF","#88D8A3","#B8E6B8","#C7F0DB","#D4F1D4"]'
+              >
+                <div
+                  class="w-full h-8 rounded-lg bg-gradient-to-r from-green-200 via-green-300 to-green-200"
+                ></div>
+                <span class="text-xs mt-1 block text-center">Bosque</span>
+              </button>
+              <button
+                class="color-preset p-2 rounded-lg border-2 border-gray-200 hover:border-pink-300 transition-colors"
+                data-preset="lavender"
+                data-colors='["#E6E6FA","#D8BFD8","#DDA0DD","#EE82EE","#DA70D6"]'
+              >
+                <div
+                  class="w-full h-8 rounded-lg bg-gradient-to-r from-purple-200 via-pink-200 to-purple-200"
+                ></div>
+                <span class="text-xs mt-1 block text-center">Lavanda</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Colores personalizados -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Colores personalizados</label
+            >
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">Color principal</label>
+                <input
+                  type="color"
+                  id="primary-color"
+                  value="#FFB6C1"
+                  class="w-full h-10 rounded-lg border-2 border-gray-200"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">Color secundario</label>
+                <input
+                  type="color"
+                  id="secondary-color"
+                  value="#B3D9FF"
+                  class="w-full h-10 rounded-lg border-2 border-gray-200"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">Color de texto</label>
+                <input
+                  type="color"
+                  id="text-color"
+                  value="#374151"
+                  class="w-full h-10 rounded-lg border-2 border-gray-200"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">Color de borde</label>
+                <input
+                  type="color"
+                  id="border-color"
+                  value="#FFB6C1"
+                  class="w-full h-10 rounded-lg border-2 border-gray-200"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Opacidad del fondo -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Opacidad del fondo</label
+            >
+            <input
+              type="range"
+              id="background-opacity"
+              min="0"
+              max="100"
+              value="95"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>Transparente</span>
+              <span id="opacity-value">95%</span>
+              <span>Opaco</span>
+            </div>
+          </div>
+
+          <!-- Tema -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Tema</label
+            >
+            <div class="flex space-x-4">
+              <label class="flex items-center">
+                <input type="radio" name="theme" value="light" checked class="mr-2" />
+                <span>Claro</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="theme" value="dark" class="mr-2" />
+                <span>Oscuro</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Posición del Overlay -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">📍 Posición y Tamaño</h2>
+
+          <!-- Posición -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Posición en pantalla</label
+            >
+            <div class="grid grid-cols-3 gap-2">
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="top-left" class="mb-1" />
+                <span class="text-xs">Arriba Izq</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="top" class="mb-1" />
+                <span class="text-xs">Arriba</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="top-right" class="mb-1" />
+                <span class="text-xs">Arriba Der</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="left" class="mb-1" />
+                <span class="text-xs">Izquierda</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-pink-300 rounded-lg hover:border-pink-400 cursor-pointer">
+                <input type="radio" name="position" value="center" checked class="mb-1" />
+                <span class="text-xs font-semibold text-pink-600">Centro</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="right" class="mb-1" />
+                <span class="text-xs">Derecha</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="bottom-left" class="mb-1" />
+                <span class="text-xs">Abajo Izq</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="bottom" class="mb-1" />
+                <span class="text-xs">Abajo</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="position" value="bottom-right" class="mb-1" />
+                <span class="text-xs">Abajo Der</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Tamaño -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Tamaño del overlay</label
+            >
+            <input
+              type="range"
+              id="overlay-size"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value="1"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>50%</span>
+              <span id="size-value">100%</span>
+              <span>200%</span>
+            </div>
+          </div>
+
+          <!-- Padding -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Padding (espaciado)</label
+            >
+            <input
+              type="range"
+              id="padding"
+              min="10"
+              max="100"
+              value="50"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>10px</span>
+              <span id="padding-value">50px</span>
+              <span>100px</span>
+            </div>
+          </div>
+
+          <!-- Ancho máximo -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Ancho máximo</label
+            >
+            <input
+              type="range"
+              id="max-width"
+              min="300"
+              max="800"
+              step="50"
+              value="500"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>300px</span>
+              <span id="max-width-value">500px</span>
+              <span>800px</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Animaciones -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            ✨ Animaciones y Efectos
+          </h2>
+
+          <!-- Duración de animaciones -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Duración de animaciones</label
+            >
+            <input
+              type="range"
+              id="animation-duration"
+              min="0.3"
+              max="3"
+              step="0.1"
+              value="0.8"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>0.3s</span>
+              <span id="duration-value">0.8s</span>
+              <span>3.0s</span>
+            </div>
+          </div>
+
+          <!-- Efecto de entrada -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Efecto de entrada</label
+            >
+            <div class="grid grid-cols-2 gap-2">
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="enter-effect" value="fade" checked class="mb-1" />
+                <span class="text-xs">Desvanecer</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="enter-effect" value="slide" class="mb-1" />
+                <span class="text-xs">Deslizar</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="enter-effect" value="bounce" class="mb-1" />
+                <span class="text-xs">Rebotar</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="enter-effect" value="scale" class="mb-1" />
+                <span class="text-xs">Escalar</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Efecto de victoria -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Efecto de victoria</label
+            >
+            <div class="grid grid-cols-2 gap-2">
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="victory-effect" value="confetti" checked class="mb-1" />
+                <span class="text-xs">🎊 Confeti</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="victory-effect" value="glow" class="mb-1" />
+                <span class="text-xs">✨ Brillo</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="victory-effect" value="bounce" class="mb-1" />
+                <span class="text-xs">🏀 Rebote</span>
+              </label>
+              <label class="flex flex-col items-center p-2 border-2 border-gray-200 rounded-lg hover:border-pink-300 cursor-pointer">
+                <input type="radio" name="victory-effect" value="particles" class="mb-1" />
+                <span class="text-xs">✨ Partículas</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Intensidad de efectos -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Intensidad de efectos</label
+            >
+            <input
+              type="range"
+              id="effect-intensity"
+              min="1"
+              max="5"
+              step="1"
+              value="3"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>Suave</span>
+              <span id="intensity-value">Normal</span>
+              <span>Intenso</span>
+            </div>
+          </div>
+
+          <!-- Opciones adicionales -->
+          <div class="space-y-3">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="enable-confetti"
+                checked
+                class="mr-2"
+              />
+              <span class="text-sm font-medium text-gray-700"
+                >Habilitar confeti</span
+              >
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="enable-sound"
+                class="mr-2"
+              />
+              <span class="text-sm font-medium text-gray-700"
+                >Efectos de sonido (próximamente)</span
+              >
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="enable-shake"
+                class="mr-2"
+              />
+              <span class="text-sm font-medium text-gray-700"
+                >Vibración en victoria</span
+              >
+            </label>
+          </div>
+        </div>
+
+        <!-- Configuración Avanzada -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">⚙️ Configuración Avanzada</h2>
+
+          <!-- Tiempo antes de ocultar -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Tiempo antes de ocultar</label
+            >
+            <input
+              type="range"
+              id="hide-delay"
+              min="2"
+              max="15"
+              value="5"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>2s</span>
+              <span id="delay-value">5s</span>
+              <span>15s</span>
+            </div>
+          </div>
+
+          <!-- Tamaño de fuente -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Tamaño de fuente</label
+            >
+            <input
+              type="range"
+              id="font-size"
+              min="12"
+              max="32"
+              value="18"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>12px</span>
+              <span id="font-size-value">18px</span>
+              <span>32px</span>
+            </div>
+          </div>
+
+          <!-- Redondez de bordes -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Redondez de bordes</label
+            >
+            <input
+              type="range"
+              id="border-radius"
+              min="0"
+              max="30"
+              value="24"
+              class="w-full"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>Cuadrado</span>
+              <span id="border-radius-value">24px</span>
+              <span>Muy redondeado</span>
+            </div>
+          </div>
+
+          <!-- Opciones adicionales -->
+          <div class="space-y-3">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="show-timer"
+                checked
+                class="mr-2"
+              />
+              <span class="text-sm font-medium text-gray-700"
+                >Mostrar temporizador</span
+              >
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="show-total-votes"
+                checked
+                class="mr-2"
+              />
+              <span class="text-sm font-medium text-gray-700"
+                >Mostrar total de votos</span
+              >
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="auto-hide"
+                checked
+                class="mr-2"
+              />
+              <span class="text-sm font-medium text-gray-700"
+                >Ocultar automáticamente</span
+              >
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                id="enable-notifications"
+                class="mr-2"
+              />
+              <span class="text-sm font-medium text-gray-700"
+                >Notificaciones del navegador</span
+              >
+            </label>
+          </div>
+        </div>
+
+        <!-- Preview del Overlay -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">👁️ Vista Previa</h2>
+          
+          <div class="bg-gray-900 rounded-lg p-4 mb-4 relative" style="height: 300px;">
+            <div id="overlay-preview" class="absolute inset-0 flex items-center justify-center">
+              <div class="poll-card-preview bg-white bg-opacity-95 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+                <div class="text-center mb-4">
+                  <h3 class="text-lg font-semibold text-gray-800">¿Cuál es tu favorito?</h3>
+                  <div class="text-sm text-pink-500 font-medium">2:30</div>
+                </div>
+                <div class="space-y-3">
+                  <div class="bg-gray-50 rounded-lg p-3">
+                    <div class="text-sm font-medium text-gray-800 mb-2">Opción 1</div>
+                    <div class="bg-pink-200 rounded-full h-2 mb-1">
+                      <div class="bg-pink-400 rounded-full h-2" style="width: 60%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500">
+                      <span>60 votos</span>
+                      <span>60%</span>
+                    </div>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-3">
+                    <div class="text-sm font-medium text-gray-800 mb-2">Opción 2</div>
+                    <div class="bg-blue-200 rounded-full h-2 mb-1">
+                      <div class="bg-blue-400 rounded-full h-2" style="width: 40%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500">
+                      <span>40 votos</span>
+                      <span>40%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center mt-4 text-xs text-gray-500">
+                  Total: 100 votos
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex space-x-2">
+            <button id="preview-begin" class="flex-1 bg-pink-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-pink-600 transition-colors">
+              🚀 Simular Inicio
+            </button>
+            <button id="preview-progress" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors">
+              📊 Simular Progreso
+            </button>
+            <button id="preview-end" class="flex-1 bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-600 transition-colors">
+              🏆 Simular Final
+            </button>
+          </div>
+        </div>
+
+        <!-- URL para OBS -->
+        <div class="bg-white rounded-xl shadow-lg p-6 lg:col-span-2">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            📺 Configuración para OBS
+          </h2>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >URL del Overlay</label
+              >
+              <div class="flex">
+                <input
+                  type="text"
+                  id="overlay-url"
+                  readonly
+                  class="flex-1 p-3 border border-gray-300 rounded-l-lg bg-gray-50 font-mono text-sm"
+                />
+                <button
+                  id="copy-url"
+                  class="px-4 py-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition-colors"
+                >
+                  📋 Copiar
+                </button>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h3 class="font-semibold text-blue-800 mb-2">
+                📋 Instrucciones para OBS:
+              </h3>
+              <ol
+                class="text-sm text-blue-700 space-y-1 list-decimal list-inside"
+              >
+                <li>Agrega una nueva fuente de tipo "Browser Source"</li>
+                <li>Copia la URL de arriba y pégala en el campo "URL"</li>
+                <li>Establece las dimensiones: <strong>1920x1080</strong></li>
+                <li>Marca "Shutdown source when not visible"</li>
+                <li>Marca "Refresh browser when scene becomes active"</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="flex justify-center space-x-4 mt-8">
+        <button
+          id="save-config"
+          class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-semibold"
+        >
+          💾 Guardar Configuración
+        </button>
+        <button
+          id="reset-config"
+          class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-semibold"
+        >
+          🔄 Restablecer
+        </button>
+        <button
+          id="preview-overlay"
+          class="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors font-semibold"
+        >
+          👁️ Vista Previa
+        </button>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/socket-client.js"></script>
+    <script src="js/config.js"></script>
+  </body>
+</html>

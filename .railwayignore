@@ -1,0 +1,27 @@
+# Archivos que NO se suben a Railway
+node_modules/
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de desarrollo
+backend/node_modules/
+frontend/node_modules/
+package-lock.json
+yarn.lock
+
+# Archivos temporales
+.tmp/
+temp/

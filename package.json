@@ -1,0 +1,29 @@
+{
+  "name": "twitch-poll-overlay",
+  "version": "1.0.0",
+  "description": "Overlay sincronizado con encuestas nativas de Twitch usando EventSub",
+  "main": "backend/src/server.js",
+  "scripts": {
+    "dev": "cd backend && npm run dev",
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm run build",
+    "install-all": "npm install && cd backend && npm install"
+  },
+  "keywords": [
+    "twitch",
+    "overlay",
+    "polls",
+    "eventsub",
+    "obs",
+    "streaming"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
